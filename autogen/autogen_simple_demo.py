@@ -48,7 +48,10 @@ class SimpleInterviewPlatformWorkflow:
         # Phase 3: Blueprint
         self.phase_blueprint()
 
-        # Phase 4: Review
+        # Phase 4: Technical Feasibility (NEW PHASE ADDED - Exercise 3)
+        self.phase_technical()
+
+        # Phase 5: Review
         self.phase_review()
 
         # Summary
@@ -143,19 +146,65 @@ Create a product blueprint for our platform."""
         print("\n[BlueprintAgent Output]")
         print(self.outputs["blueprint"])
 
-    def phase_review(self):
-        """Phase 4: Strategic Review"""
+    def phase_technical(self):
+        """Phase 4: Technical Feasibility Assessment (NEW PHASE - Exercise 3)"""
         print("\n" + "="*80)
-        print("PHASE 4: STRATEGIC REVIEW")
+        print("PHASE 4: TECHNICAL FEASIBILITY")
+        print("="*80)
+        print("[TechnicalAgent is assessing technical requirements...]")
+
+        system_prompt = """You are a senior technical architect. Based on the product blueprint,
+assess the technical feasibility and provide:
+- Required technology stack (AI/ML, backend, frontend)
+- Key technical challenges (2-3)
+- Architecture recommendations
+Keep it concise - 150 words."""
+
+        user_message = f"""Product Blueprint:
+{self.outputs['blueprint']}
+
+Assess technical feasibility and architecture requirements."""
+
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                temperature=Config.AGENT_TEMPERATURE,
+                max_tokens=Config.AGENT_MAX_TOKENS,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_message}
+                ]
+            )
+
+            self.outputs["technical"] = response.choices[0].message.content
+            print("\n[TechnicalAgent Output]")
+            print(self.outputs["technical"])
+        except Exception as e:
+            print(f"❌ Error during workflow execution: {e}")
+            print("Troubleshooting:")
+            print("1. Verify OPENAI_API_KEY is set in parent directory .env (../.env)")
+            print("2. Check your API key has sufficient credits")
+            print("3. Verify internet connection")
+            print("4. Ensure config.py can access shared_config from parent directory")
+            print("5. Check OpenAI API status at https://status.openai.com")
+            raise
+
+    def phase_review(self):
+        """Phase 5: Strategic Review"""
+        print("\n" + "="*80)
+        print("PHASE 5: STRATEGIC REVIEW")
         print("="*80)
         print("[ReviewerAgent is providing recommendations...]")
 
         system_prompt = """You are a product reviewer and strategist. Review the product blueprint
-and provide 3 strategic recommendations for success.
+and technical assessment, then provide 3 strategic recommendations for success.
 Be concise - 150 words."""
 
         user_message = f"""Product Blueprint:
 {self.outputs['blueprint']}
+
+Technical Assessment:
+{self.outputs['technical']}
 
 Provide strategic review and recommendations."""
 
@@ -180,11 +229,12 @@ Provide strategic review and recommendations."""
         print("="*80)
 
         print("""
-This workflow demonstrated a 4-agent collaboration:
+This workflow demonstrated a 5-agent collaboration:
 1. ResearchAgent - Analyzed the market
 2. AnalysisAgent - Identified opportunities
 3. BlueprintAgent - Designed the product
-4. ReviewerAgent - Provided strategic recommendations
+4. TechnicalAgent - Assessed technical feasibility (NEW - Exercise 3)
+5. ReviewerAgent - Provided strategic recommendations
 
 Each agent received context from the previous agent's output,
 demonstrating the sequential workflow pattern of AutoGen.
@@ -211,7 +261,12 @@ demonstrating the sequential workflow pattern of AutoGen.
         print(self.outputs["blueprint"])
         
         print("\n" + "-"*80)
-        print("PHASE 4: STRATEGIC REVIEW (Full Output)")
+        print("PHASE 4: TECHNICAL FEASIBILITY (Full Output)")
+        print("-"*80)
+        print(self.outputs["technical"])
+        
+        print("\n" + "-"*80)
+        print("PHASE 5: STRATEGIC REVIEW (Full Output)")
         print("-"*80)
         print(self.outputs["review"])
 
@@ -241,7 +296,12 @@ demonstrating the sequential workflow pattern of AutoGen.
             f.write(self.outputs["blueprint"] + "\n")
             
             f.write("\n" + "-"*80 + "\n")
-            f.write("PHASE 4: STRATEGIC REVIEW\n")
+            f.write("PHASE 4: TECHNICAL FEASIBILITY\n")
+            f.write("-"*80 + "\n")
+            f.write(self.outputs["technical"] + "\n")
+            
+            f.write("\n" + "-"*80 + "\n")
+            f.write("PHASE 5: STRATEGIC REVIEW\n")
             f.write("-"*80 + "\n")
             f.write(self.outputs["review"] + "\n")
         

@@ -99,27 +99,40 @@ Configuration Summary:
 class AgentConfig:
     """Configuration for individual agents"""
 
+    # Original roles (commented for reference):
+    # "role": "Market Researcher"
+    # "role": "Product Analyst"
+    # "role": "Product Designer"
+    # "role": "Product Reviewer"
+
     RESEARCH_AGENT = {
         "name": "ResearchAgent",
-        "role": "Market Researcher",
+        "role": "Senior Market Intelligence Analyst",  # Modified from: "Market Researcher"
         "temperature": 0.7,
     }
 
     ANALYSIS_AGENT = {
         "name": "AnalysisAgent",
-        "role": "Product Analyst",
+        "role": "Strategic Business Consultant",  # Modified from: "Product Analyst"
         "temperature": 0.7,
     }
 
     BLUEPRINT_AGENT = {
         "name": "BlueprintAgent",
-        "role": "Product Designer",
+        "role": "Chief Product Architect",  # Modified from: "Product Designer"
         "temperature": 0.7,
     }
 
     REVIEWER_AGENT = {
         "name": "ReviewerAgent",
-        "role": "Product Reviewer",
+        "role": "Executive Product Strategist",  # Modified from: "Product Reviewer"
+        "temperature": 0.7,
+    }
+
+    # NEW AGENT ADDED - Exercise 3
+    TECHNICAL_AGENT = {
+        "name": "TechnicalAgent",
+        "role": "Senior Technical Architect",
         "temperature": 0.7,
     }
 
@@ -131,6 +144,7 @@ class AgentConfig:
             "analysis": cls.ANALYSIS_AGENT,
             "blueprint": cls.BLUEPRINT_AGENT,
             "reviewer": cls.REVIEWER_AGENT,
+            "technical": cls.TECHNICAL_AGENT,  # NEW AGENT ADDED
         }
         return agents.get(agent_type, {})
 
@@ -143,6 +157,7 @@ class WorkflowConfig:
         "research",
         "analysis",
         "blueprint",
+        "technical",  # NEW PHASE ADDED
         "review",
     ]
 
@@ -151,6 +166,7 @@ class WorkflowConfig:
         "research": "Market Research & Competitive Analysis",
         "analysis": "Market Gap Analysis & Opportunities",
         "blueprint": "Product Blueprint Creation",
+        "technical": "Technical Feasibility Assessment",  # NEW PHASE ADDED
         "review": "Strategic Review & Recommendations",
     }
 
@@ -159,6 +175,7 @@ class WorkflowConfig:
         "research": "Conduct market analysis for AI-powered interview platforms",
         "analysis": "Identify 3 key market opportunities and gaps",
         "blueprint": "Create product blueprint with features and user flows",
+        "technical": "Assess technical feasibility and architecture requirements",  # NEW TASK ADDED
         "review": "Review blueprint and provide strategic recommendations",
     }
 

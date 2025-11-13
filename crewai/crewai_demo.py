@@ -144,16 +144,26 @@ def search_travel_costs(destination: str) -> str:
 
 def create_flight_agent(destination: str, trip_dates: str):
     """Create the Flight Specialist agent with real research tools."""
+    
+    # Original role: "Flight Specialist"
+    # Original backstory: "You are an experienced flight specialist with deep knowledge of "
+    #                     "airline schedules, pricing patterns, and travel routes. You excel at "
+    #                     "finding the best flight options that balance cost and convenience. "
+    #                     "You have booked thousands of flights and know the best times to fly. "
+    #                     "You always research current prices and use real booking site data."
+    
     return Agent(
-        role="Flight Specialist",
+        role="Senior Aviation Travel Consultant",  # Modified from: "Flight Specialist"
         goal=f"Research and recommend the best flight options for the {destination} trip "
              f"({trip_dates}), considering dates, airlines, prices, and flight durations. "
              f"Use real data from flight booking sites to provide accurate, current pricing.",
-        backstory="You are an experienced flight specialist with deep knowledge of "
-                  "airline schedules, pricing patterns, and travel routes. You excel at "
-                  "finding the best flight options that balance cost and convenience. "
-                  "You have booked thousands of flights and know the best times to fly. "
-                  "You always research current prices and use real booking site data.",
+        backstory="You are a world-renowned aviation expert with over 15 years of experience "
+                  "in the travel industry. Having worked with major airlines and booking platforms, "
+                  "you possess insider knowledge of pricing algorithms, seasonal trends, and "
+                  "route optimization. You've personally flown over 2 million miles and have "
+                  "mastered the art of finding hidden deals and optimal connections. Your clients "
+                  "trust you to balance cost-efficiency with comfort and convenience. You pride "
+                  "yourself on staying updated with real-time flight data and industry changes.",
         tools=[search_flight_prices],
         verbose=True,
         allow_delegation=False
@@ -171,16 +181,27 @@ def create_hotel_agent(destination: str, trip_dates: str):
     elif destination.lower() == "japan":
         hotel_location = "Tokyo"
 
+    # Original role: "Accommodation Specialist"
+    # Original backstory: "You are a seasoned accommodation expert with extensive knowledge of "
+    #                     "hotels worldwide. You understand traveler needs and can match them with "
+    #                     "perfect accommodations. You read reviews meticulously and know which "
+    #                     "hotels offer the best experience for different budgets. You always "
+    #                     "check current availability and actual guest reviews."
+
     return Agent(
-        role="Accommodation Specialist",
+        role="Elite Hospitality Concierge",  # Modified from: "Accommodation Specialist"
         goal=f"Suggest top-rated hotels in {hotel_location} for the {destination} trip "
              f"({trip_dates}), considering amenities, location, and value for money. "
              f"Use real hotel data from booking sites with current prices and reviews.",
-        backstory="You are a seasoned accommodation expert with extensive knowledge of "
-                  "hotels worldwide. You understand traveler needs and can match them with "
-                  "perfect accommodations. You read reviews meticulously and know which "
-                  "hotels offer the best experience for different budgets. You always "
-                  "check current availability and actual guest reviews.",
+        backstory="You are a distinguished hospitality concierge with an impeccable reputation "
+                  "in luxury and boutique hotel curation. Having visited over 500 properties "
+                  "worldwide and maintained relationships with hotel managers globally, you "
+                  "understand the nuances that make a stay exceptional. Your expertise spans "
+                  "from budget-friendly gems to five-star resorts. You're known for reading "
+                  "between the lines of reviews, identifying authentic feedback, and matching "
+                  "travelers with their perfect accommodation. Your recommendations have earned "
+                  "you features in top travel magazines and a loyal following of satisfied clients "
+                  "who trust your meticulous research and insider knowledge.",
         tools=[search_hotel_options],
         verbose=True,
         allow_delegation=False
@@ -189,16 +210,28 @@ def create_hotel_agent(destination: str, trip_dates: str):
 
 def create_itinerary_agent(destination: str, trip_duration: str):
     """Create the Travel Planner agent with real research tools."""
+    
+    # Original role: "Travel Planner"
+    # Original backstory: f"You are a creative travel planner with a passion for {destination}. "
+    #                     f"You have extensive knowledge of {destination}'s attractions, culture, and hidden gems. "
+    #                     f"You create itineraries that are well-paced, exciting, and memorable. "
+    #                     f"You consider travel times, weather, and traveler preferences to craft the perfect journey. "
+    #                     f"You always verify current information about attractions and tours."
+    
     return Agent(
-        role="Travel Planner",
+        role="Master Travel Experience Designer",  # Modified from: "Travel Planner"
         goal=f"Create a detailed day-by-day travel plan with activities and attractions "
              f"that maximize the {destination} experience in {trip_duration}. "
              f"Use real current information about attractions, opening hours, and accessibility.",
-        backstory=f"You are a creative travel planner with a passion for {destination}. "
-                  f"You have extensive knowledge of {destination}'s attractions, culture, and hidden gems. "
-                  f"You create itineraries that are well-paced, exciting, and memorable. "
-                  f"You consider travel times, weather, and traveler preferences to craft the perfect journey. "
-                  f"You always verify current information about attractions and tours.",
+        backstory=f"You are an award-winning travel designer with a deep cultural connection to "
+                  f"{destination}. After living there for several years and leading hundreds of tours, "
+                  f"you've developed an intimate understanding of the destination's soul - from iconic "
+                  f"landmarks to secret local spots that tourists rarely discover. Your itineraries "
+                  f"are legendary for their perfect pacing, mixing popular attractions with authentic "
+                  f"experiences. You consider everything: seasonal weather patterns, crowd levels, "
+                  f"optimal visiting times, and the cultural significance of each location. Travel "
+                  f"bloggers often cite your recommendations, and your clients describe your itineraries "
+                  f"as 'life-changing journeys' rather than simple vacation plans.",
         tools=[search_attractions_activities],
         verbose=True,
         allow_delegation=False
@@ -207,16 +240,52 @@ def create_itinerary_agent(destination: str, trip_duration: str):
 
 def create_budget_agent(destination: str):
     """Create the Financial Advisor agent with real cost research tools."""
+    
+    # Original role: "Financial Advisor"
+    # Original backstory: "You are a meticulous financial advisor specializing in travel budgeting. "
+    #                     "You can analyze costs across flights, accommodations, activities, and meals. "
+    #                     "You identify hidden costs and suggest smart ways to save money without "
+    #                     "compromising the travel experience. You research actual current prices "
+    #                     "and provide realistic budget estimates."
+    
     return Agent(
-        role="Financial Advisor",
+        role="Travel Finance Optimization Expert",  # Modified from: "Financial Advisor"
         goal=f"Calculate total trip costs for {destination} and identify cost-saving opportunities "
              f"while maintaining quality. Use real current pricing data for all expenses.",
-        backstory="You are a meticulous financial advisor specializing in travel budgeting. "
-                  "You can analyze costs across flights, accommodations, activities, and meals. "
-                  "You identify hidden costs and suggest smart ways to save money without "
-                  "compromising the travel experience. You research actual current prices "
-                  "and provide realistic budget estimates.",
+        backstory="You are a certified financial planner who specializes exclusively in travel economics. "
+                  "With an MBA in Hospitality Management and a background in international finance, "
+                  "you've mastered the art of maximizing travel value. You've personally audited "
+                  "travel expenses for Fortune 500 executives and budget backpackers alike, always "
+                  "finding innovative ways to stretch every dollar without sacrificing experience quality. "
+                  "Your proprietary budgeting framework accounts for seasonal pricing variations, "
+                  "currency fluctuations, and local economic factors. You're known for uncovering "
+                  "hidden fees before they surprise travelers and for identifying legitimate discount "
+                  "opportunities that others miss. Financial publications regularly feature your "
+                  "cost-optimization strategies, and travelers credit you with making their dream "
+                  "trips financially achievable.",
         tools=[search_travel_costs],
+        verbose=True,
+        allow_delegation=False
+    )
+
+
+# NEW AGENT ADDED - Exercise 3
+def create_marketing_agent(destination: str):
+    """Create the Marketing Specialist agent (NEW - Exercise 3)."""
+    return Agent(
+        role="Travel Marketing Strategist",
+        goal=f"Create a compelling marketing summary for the {destination} trip package "
+             f"that highlights unique selling points and appeals to target travelers.",
+        backstory="You are a creative marketing strategist specializing in travel and tourism with "
+                  "15 years of experience crafting compelling travel narratives. You've worked with "
+                  "major travel brands and boutique tour operators, creating campaigns that convert "
+                  "browsers into bookers. Your talent lies in identifying the emotional triggers that "
+                  "make people want to travel - the promise of adventure, relaxation, cultural immersion, "
+                  "or personal transformation. You understand how to highlight unique value propositions, "
+                  "create urgency, and build trust through authentic storytelling. Your marketing copy "
+                  "has consistently achieved high conversion rates by balancing aspirational imagery "
+                  "with practical details that help travelers envision their perfect trip.",
+        tools=[],  # Marketing agent doesn't need research tools, works with provided context
         verbose=True,
         allow_delegation=False
     )
@@ -304,6 +373,28 @@ def create_budget_task(budget_agent, destination: str, trip_duration: str):
     )
 
 
+# NEW TASK ADDED - Exercise 3
+def create_marketing_task(marketing_agent, destination: str, trip_duration: str):
+    """Define the marketing summary task (NEW - Exercise 3)."""
+    return Task(
+        description=f"Create a compelling marketing summary for the {trip_duration} {destination} trip package "
+                   f"based on all the information gathered by other agents (flights, hotels, itinerary, budget). "
+                   f"Your summary should: "
+                   f"1) Highlight 3-5 unique selling points that make this package special "
+                   f"2) Create an engaging headline and opening paragraph "
+                   f"3) Include key package details in an appealing way "
+                   f"4) Address potential traveler concerns (value, safety, experience quality) "
+                   f"5) End with a strong call-to-action "
+                   f"Write in an enthusiastic but authentic tone that inspires booking decisions. "
+                   f"Keep it concise (250-300 words) but impactful.",
+        agent=marketing_agent,
+        expected_output=f"A polished marketing summary with headline, engaging body copy highlighting "
+                       f"unique value propositions, key package details, and persuasive call-to-action "
+                       f"for the {destination} trip",
+        context=[]  # Will be populated with outputs from previous tasks
+    )
+
+
 # ============================================================================
 # CREW ORCHESTRATION
 # ============================================================================
@@ -361,17 +452,20 @@ def main(destination: str = "Iceland", trip_duration: str = "5 days",
     print()
 
     # Create agents with destination parameters
-    print("[1/4] Creating Flight Specialist Agent (researches real flights)...")
+    print("[1/5] Creating Flight Specialist Agent (researches real flights)...")
     flight_agent = create_flight_agent(destination, trip_dates)
 
-    print("[2/4] Creating Accommodation Specialist Agent (researches real hotels)...")
+    print("[2/5] Creating Accommodation Specialist Agent (researches real hotels)...")
     hotel_agent = create_hotel_agent(destination, trip_dates)
 
-    print("[3/4] Creating Travel Planner Agent (researches real attractions)...")
+    print("[3/5] Creating Travel Planner Agent (researches real attractions)...")
     itinerary_agent = create_itinerary_agent(destination, trip_duration)
 
-    print("[4/4] Creating Financial Advisor Agent (analyzes real costs)...")
+    print("[4/5] Creating Financial Advisor Agent (analyzes real costs)...")
     budget_agent = create_budget_agent(destination)
+
+    print("[5/5] Creating Marketing Strategist Agent (creates compelling summary)... [NEW - Exercise 3]")
+    marketing_agent = create_marketing_agent(destination)
 
     print("\n✅ All agents created successfully!")
     print()
@@ -382,18 +476,19 @@ def main(destination: str = "Iceland", trip_duration: str = "5 days",
     hotel_task = create_hotel_task(hotel_agent, destination, trip_dates)
     itinerary_task = create_itinerary_task(itinerary_agent, destination, trip_duration, trip_dates)
     budget_task = create_budget_task(budget_agent, destination, trip_duration)
+    marketing_task = create_marketing_task(marketing_agent, destination, trip_duration)  # NEW TASK - Exercise 3
 
     print("Tasks created successfully!")
     print()
 
     # Create the crew with sequential task execution
     print("Forming the Travel Planning Crew...")
-    print("Task Sequence: FlightAgent → HotelAgent → ItineraryAgent → BudgetAgent")
+    print("Task Sequence: FlightAgent → HotelAgent → ItineraryAgent → BudgetAgent → MarketingAgent [NEW]")
     print()
 
     crew = Crew(
-        agents=[flight_agent, hotel_agent, itinerary_agent, budget_agent],
-        tasks=[flight_task, hotel_task, itinerary_task, budget_task],
+        agents=[flight_agent, hotel_agent, itinerary_agent, budget_agent, marketing_agent],  # Added marketing_agent
+        tasks=[flight_task, hotel_task, itinerary_task, budget_task, marketing_task],  # Added marketing_task
         verbose=True,
         process="sequential"  # Sequential task execution
     )
